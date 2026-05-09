@@ -36,35 +36,40 @@
       </div>
 
       <div class="usersGrid" id="usersGrid">
-        <article class="userTile" data-platform="youtube" data-id="0">
+        <article class="userTile" data-platform="youtube" data-id="0" data-year="2005">
           <a class="userTile__link" href="https://youtube.com/@lisc" target="_blank" rel="noopener">
             <span class="userTile__name">lisc</span>
             <span class="userTile__platform">YouTube</span>
           </a>
+          <span class="userTile__year">2005</span>
         </article>
-        <article class="userTile" data-platform="youtube" data-id="1">
+        <article class="userTile" data-platform="youtube" data-id="1" data-year="2005">
           <a class="userTile__link" href="https://youtube.com/@sauske" target="_blank" rel="noopener">
             <span class="userTile__name">sauske</span>
             <span class="userTile__platform">YouTube</span>
           </a>
+          <span class="userTile__year">2005</span>
         </article>
-        <article class="userTile" data-platform="youtube" data-id="2">
+        <article class="userTile" data-platform="youtube" data-id="2" data-year="2005">
           <a class="userTile__link" href="https://youtube.com/@spadajmy" target="_blank" rel="noopener">
             <span class="userTile__name">spadajmy</span>
             <span class="userTile__platform">YouTube</span>
           </a>
+          <span class="userTile__year">2005</span>
         </article>
-        <article class="userTile" data-platform="youtube" data-id="3">
+        <article class="userTile" data-platform="youtube" data-id="3" data-year="2005">
           <a class="userTile__link" href="https://youtube.com/@veil" target="_blank" rel="noopener">
             <span class="userTile__name">veil</span>
             <span class="userTile__platform">YouTube</span>
           </a>
+          <span class="userTile__year">2005</span>
         </article>
-        <article class="userTile" data-platform="youtube" data-id="4">
+        <article class="userTile" data-platform="youtube" data-id="4" data-year="2005">
           <a class="userTile__link" href="https://youtube.com/@echo" target="_blank" rel="noopener">
             <span class="userTile__name">echo</span>
             <span class="userTile__platform">YouTube</span>
           </a>
+          <span class="userTile__year">2005</span>
         </article>
         <article class="userTile" data-platform="instagram" data-id="5">
           <a class="userTile__link" href="https://instagram.com/seraph" target="_blank" rel="noopener">
@@ -113,6 +118,7 @@
           <option value="youtube">YouTube</option>
           <option value="instagram">Instagram</option>
         </select>
+        <input id="addYearInput" type="text" class="usersEditorCard__input" placeholder="Year (YT)" maxlength="4" style="max-width:90px">
         <button class="usersEditor__btn" id="addTileBtn" type="button">Add tile</button>
       </div>
 
@@ -134,6 +140,7 @@
     const addNameInput = document.getElementById("addNameInput");
     const addUrlInput = document.getElementById("addUrlInput");
     const addPlatformSelect = document.getElementById("addPlatformSelect");
+    const addYearInput = document.getElementById("addYearInput");
     const usersGrid = document.getElementById("usersGrid");
     const usersSubtitle = document.querySelector(".usersPanel__subtitle");
     const storageKey = "usernameArchiveTiles";
@@ -145,6 +152,7 @@
         platform: tile.dataset.platform || "youtube",
         name: (nameEl?.textContent || "").trim(),
         url: (linkEl?.getAttribute("href") || "#").trim(),
+        year: (tile.dataset.year || "2005").trim(),
       };
     });
     let tilesData = [...defaultTiles];
@@ -170,12 +178,15 @@
       const tilesMarkup = tilesData
         .map((tile) => {
           const platformLabel = tile.platform === "instagram" ? "Instagram" : "YouTube";
+          const yearBadge = tile.platform === "youtube" && tile.year
+            ? `<span class="userTile__year">${tile.year}</span>` : "";
           return `
-              <article class="userTile" data-platform="${tile.platform}" data-id="${tile.id}">
+              <article class="userTile" data-platform="${tile.platform}" data-id="${tile.id}" data-year="${tile.year || ''}">
                 <a class="userTile__link" href="${tile.url}" target="_blank" rel="noopener">
                   <span class="userTile__name">${tile.name}</span>
                   <span class="userTile__platform">${platformLabel}</span>
                 </a>
+                ${yearBadge}
               </article>
             `;
         })
@@ -218,6 +229,7 @@
             name: entry.name.trim(),
             url: entry.url.trim() || "#",
             platform,
+            year: (entry.year || "2005").trim(),
           });
         });
 
@@ -252,6 +264,8 @@
           const url = (linkEl?.getAttribute("href") || "").trim().replaceAll('"', "&quot;");
           const platform = (platformEl?.textContent || tile.dataset.platform || "").trim();
           const normalizedPlatform = platform.toLowerCase() === "instagram" ? "instagram" : "youtube";
+          const year = (tile.dataset.year || "2005").trim().replaceAll('"', "&quot;");
+          const isYoutube = normalizedPlatform === "youtube";
 
           return `
               <article class="usersEditorCard" data-id="${id}">
@@ -274,6 +288,10 @@
                     <option value="instagram" ${normalizedPlatform === "instagram" ? "selected" : ""}>Instagram</option>
                   </select>
                 </label>
+                <label class="usersEditorCard__field" ${isYoutube ? '' : 'style="display:none"'}>
+                  <span>Profile year</span>
+                  <input type="text" class="usersEditorCard__input" data-field="year" value="${year}" maxlength="4" placeholder="2005">
+                </label>
                 <button class="usersEditorCard__delete" type="button" data-action="delete-tile" data-id="${id}">Delete</button>
               </article>
             `;
@@ -292,6 +310,7 @@
         const nameInput = card.querySelector('[data-field="name"]');
         const urlInput = card.querySelector('[data-field="url"]');
         const platformInput = card.querySelector('[data-field="platform"]');
+        const yearInput = card.querySelector('[data-field="year"]');
         if (!tileId || !nameInput || !urlInput || !platformInput) return;
 
         const tile = document.querySelector(`.userTile[data-id="${tileId}"]`);
@@ -304,17 +323,20 @@
         const fallbackName = nameEl.textContent || "";
         const fallbackUrl = linkEl.getAttribute("href") || "#";
         const fallbackPlatform = tile.dataset.platform || "youtube";
+        const fallbackYear = tile.dataset.year || "2005";
         const nextName = nameInput.value.trim() || fallbackName;
         const nextUrl = urlInput.value.trim() || fallbackUrl;
         const nextPlatform = platformInput.value === "instagram" ? "instagram" : fallbackPlatform;
+        const nextYear = (yearInput?.value || "").trim() || fallbackYear;
 
         nameEl.textContent = nextName;
         linkEl.href = nextUrl;
         tile.dataset.platform = nextPlatform;
+        tile.dataset.year = nextYear;
         tile.querySelector(".userTile__platform").textContent =
           nextPlatform === "instagram" ? "Instagram" : "YouTube";
 
-        entries.push({ id: tileId, name: nextName, url: nextUrl, platform: nextPlatform });
+        entries.push({ id: tileId, name: nextName, url: nextUrl, platform: nextPlatform, year: nextYear });
       });
 
       tilesData = entries;
@@ -361,6 +383,7 @@
       const nextName = addNameInput.value.trim();
       const nextUrl = addUrlInput.value.trim();
       const nextPlatform = addPlatformSelect.value === "instagram" ? "instagram" : "youtube";
+      const nextYear = (addYearInput?.value || "").trim() || "2005";
 
       if (!nextName) return;
 
@@ -369,6 +392,7 @@
         name: nextName,
         url: nextUrl || "#",
         platform: nextPlatform,
+        year: nextYear,
       };
 
       tilesData.push(newTile);
@@ -379,6 +403,7 @@
       addNameInput.value = "";
       addUrlInput.value = "";
       addPlatformSelect.value = "youtube";
+      addYearInput.value = "";
     });
 
     loadStoredTiles();
