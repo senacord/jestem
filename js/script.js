@@ -207,8 +207,8 @@ function canonicalHomeDefaults() {
     },
     email: {
       visible: true,
-      displayText: 'jay@jay.yt',
-      copyText: 'jay@jay.yt',
+      displayText: 'ladies@asia.com',
+      copyText: 'ladies@asia.com',
     },
     avatar: {
       src: 'images/profile.webp',
