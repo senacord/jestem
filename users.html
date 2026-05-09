@@ -313,28 +313,12 @@
         const yearInput = card.querySelector('[data-field="year"]');
         if (!tileId || !nameInput || !urlInput || !platformInput) return;
 
-        const tile = document.querySelector(`.userTile[data-id="${tileId}"]`);
-        if (!tile) return;
+        const nextName = nameInput.value.trim();
+        const nextUrl = urlInput.value.trim() || "#";
+        const nextPlatform = platformInput.value === "instagram" ? "instagram" : "youtube";
+        const nextYear = (yearInput?.value || "").trim() || "2005";
 
-        const nameEl = tile.querySelector(".userTile__name");
-        const linkEl = tile.querySelector(".userTile__link");
-        if (!nameEl || !linkEl) return;
-
-        const fallbackName = nameEl.textContent || "";
-        const fallbackUrl = linkEl.getAttribute("href") || "#";
-        const fallbackPlatform = tile.dataset.platform || "youtube";
-        const fallbackYear = tile.dataset.year || "2005";
-        const nextName = nameInput.value.trim() || fallbackName;
-        const nextUrl = urlInput.value.trim() || fallbackUrl;
-        const nextPlatform = platformInput.value === "instagram" ? "instagram" : fallbackPlatform;
-        const nextYear = (yearInput?.value || "").trim() || fallbackYear;
-
-        nameEl.textContent = nextName;
-        linkEl.href = nextUrl;
-        tile.dataset.platform = nextPlatform;
-        tile.dataset.year = nextYear;
-        tile.querySelector(".userTile__platform").textContent =
-          nextPlatform === "instagram" ? "Instagram" : "YouTube";
+        if (!nextName) return;
 
         entries.push({ id: tileId, name: nextName, url: nextUrl, platform: nextPlatform, year: nextYear });
       });

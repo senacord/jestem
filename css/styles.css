@@ -987,15 +987,15 @@ a.navTop.navTop--link {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.4px;
-  color: rgba(180, 210, 255, 0.72);
-  text-shadow: 0 0 6px rgba(140, 180, 255, 0.45), 0 0 14px rgba(140, 180, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25), 0 0 14px rgba(255, 255, 255, 0.1);
   pointer-events: none;
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .userTile:hover .userTile__year {
-  color: rgba(200, 225, 255, 0.9);
-  text-shadow: 0 0 8px rgba(140, 180, 255, 0.6), 0 0 20px rgba(140, 180, 255, 0.35);
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .userTile[hidden] {
