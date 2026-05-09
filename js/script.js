@@ -190,7 +190,7 @@ const LEGACY_BG_KEY = 'homeBgAppearance';
 const BG_VIDEO_FILTER_TAIL = 'contrast(1.05)';
 
 function defaultBackgroundSlice() {
-  return { saturation: 105, brightness: 80, hue: 0, blur: 0 };
+  return { saturation: 105, brightness: 40, hue: 0, blur: 0 };
 }
 
 function canonicalHomeDefaults() {
