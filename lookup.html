@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube Lookup - Find Channel IDs, Handles & Stats</title>
+    <meta name="description" content="Quickly lookup any YouTube channel's ID, handle, subscriber count, total views, and more. A clean and fast YouTube channel information tool." />
+    <meta name="keywords" content="YouTube lookup, YouTube channel ID finder, YouTube stats, YouTube handle lookup, YouTube channel info" />
+    <meta name="author" content="Jay" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="YouTube Lookup - Find Channel IDs & Stats" />
+    <meta property="og:description" content="Quickly lookup any YouTube channel's ID, handle, subscriber count, total views, and more." />
+    <meta property="og:image" content="images/favicon.png" />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="YouTube Lookup - Find Channel IDs & Stats" />
+    <meta property="twitter:description" content="Quickly lookup any YouTube channel's ID, handle, subscriber count, total views, and more." />
+    <meta property="twitter:image" content="images/favicon.png" />
+
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="css/lookup.css" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "YouTube Lookup",
+      "url": "https://lookup.jay.yt/",
+      "description": "Quickly lookup any YouTube channel's ID, handle, subscriber count, total views, and more.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "author": {
+        "@type": "Person",
+        "name": "Jay",
+        "url": "https://jay.yt"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div class="bg">
+      <video
+        id="bgVideo"
+        class="bg__video"
+        autoplay
+        loop
+        playsinline
+        webkit-playsinline
+        muted
+        disablepictureinpicture
+        disableremoteplayback
+        controlslist="nodownload noremoteplayback noplaybackrate"
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="media/kiyosumi%20-%20repeat.webm" type="video/webm" />
+      </video>
+      <div class="bg__overlay" aria-hidden="true"></div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+      <img class="toast__icon" src="images/Checkmark.png" alt="Success icon" />
+      <div id="toastText" class="toast__text">Copied to clipboard.</div>
+    </div>
+
+    <main class="page" role="main">
+      <section class="card" aria-label="YouTube lookup tool">
+        <h1 class="card__title">YouTube Lookup</h1>
+        <p class="card__subtitle">
+          Made by Jay, read my biography at <a href="https://jay.yt" target="_blank" rel="noopener">jay.yt</a>
+        </p>
+
+        <div id="lookupModeBanner" class="lookupModeBanner" hidden role="status" aria-live="polite"></div>
+
+        <div class="card__body">
+          <div class="lookupRow">
+            <input
+              id="identifier"
+              class="lookupInput"
+              placeholder="@handle, UC..., or full channel URL"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="YouTube channel handle or URL"
+            />
+            <button id="go" class="lookupBtn" type="button">Lookup</button>
+          </div>
+
+          <div class="result" aria-label="Lookup results">
+            <div id="status" class="status">Go ahead and type something in.</div>
+
+            <div id="profile" class="profile" hidden>
+              <div id="bannerWrap" class="profile__banner">
+                <img id="banner" class="profile__bannerImg" alt="Channel banner image" loading="eager" crossorigin="anonymous" />
+                <div class="profile__bannerFade" aria-hidden="true"></div>
+              </div>
+
+              <div class="profile__header">
+                <img id="avatar" class="profile__avatar" alt="YouTube channel avatar" loading="eager" crossorigin="anonymous" />
+                <div class="profile__headText">
+                  <div class="profile__nameRow">
+                    <div id="name" class="profile__name">—</div>
+                    <img
+                      id="verifiedBadge"
+                      class="profile__verified"
+                      src="images/Verified_Checkmark.svg"
+                      alt="Verified badge"
+                      hidden
+                    />
+                  </div>
+                  <a id="channelLink" class="profile__link" href="#" target="_blank" rel="noopener">
+                    Open channel
+                  </a>
+                  <a id="uploadsLink" class="profile__link" href="#" target="_blank" rel="noopener">
+                    Open uploads
+                  </a>
+                </div>
+                <button id="copyImageBtn" class="resultCopyBtn profileShareBtn" type="button">Share output</button>
+              </div>
+
+              <div class="profile__meta" aria-label="Channel details">
+                <div id="rowHandle" class="metaRow"><div class="metaRow__k">Handle</div><div id="metaHandle" class="metaRow__v">—</div></div>
+                <div class="metaRow"><div class="metaRow__k">Channel ID</div><div id="metaId" class="metaRow__v">—</div></div>
+                <div id="rowVerified" class="metaRow"><div class="metaRow__k">Verified Badge</div><div id="metaVerified" class="metaRow__v">—</div></div>
+                <div id="rowViews" class="metaRow"><div class="metaRow__k">Views</div><div id="metaViews" class="metaRow__v">—</div></div>
+                 <div id="rowVideos" class="metaRow">
+                   <div class="metaRow__k">Videos</div>
+                   <div id="metaVideos" class="metaRow__v">—</div>
+                 </div>
+                <div id="rowSubs" class="metaRow"><div class="metaRow__k">Subscribers</div><div id="metaSubs" class="metaRow__v">—</div></div>
+                <div id="rowAge" class="metaRow"><div class="metaRow__k">Channel age</div><div id="metaAge" class="metaRow__v">—</div></div>
+                <div id="rowCountry" class="metaRow"><div class="metaRow__k">Country/region</div><div id="metaCountry" class="metaRow__v">—</div></div>
+                <div id="rowBlocks" class="metaRow"><div class="metaRow__k">Country blocks</div><div id="metaBlocks" class="metaRow__v">—</div></div>
+                <div id="rowKeywords" class="metaRow"><div class="metaRow__k">Keywords</div><div id="metaKeywords" class="metaRow__v">—</div></div>
+                <div id="rowUploads" class="metaRow">
+                  <div class="metaRow__k">Uploads playlist</div>
+                  <div class="metaRow__v metaRow__v--actions">
+                    <a id="metaUploadsLink" class="metaLink" href="#" target="_blank" rel="noopener">—</a>
+                    <a id="uploadsOpenBtn" class="openBtn" href="#" target="_blank" rel="noopener" aria-label="Open uploads playlist">
+                      Open
+                    </a>
+                  </div>
+                </div>
+                <div id="rowDesc" class="metaRow"><div class="metaRow__k">Description</div><div id="metaDesc" class="metaRow__v">—</div></div>
+                <div class="metaRow"><div class="metaRow__k">Hidden</div><div id="metaHidden" class="metaRow__v">—</div></div>
+                <div class="metaRow"><div class="metaRow__k">Redirecting</div><div id="metaRedirect" class="metaRow__v">—</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="audio" aria-label="Audio controls">
+        <button id="muteBtn" class="audio__btn" type="button" aria-pressed="false">
+          Unmute
+        </button>
+        <label class="audio__sliderWrap" for="volume">
+          <span class="audio__label">Volume</span>
+          <input
+            id="volume"
+            class="audio__slider"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="30"
+            aria-label="Volume"
+          />
+        </label>
+      </div>
+    </main>
+
+    <script src="js/lookup-config.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+    <script src="js/lookup.js" defer></script>
+  </body>
+</html>

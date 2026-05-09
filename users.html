@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usernames | Jay</title>
+  <meta name="description" content="Archive of rare usernames sorted by platform.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="bg">
+    <video class="bg__video" autoplay loop playsinline webkit-playsinline muted disablepictureinpicture
+      disableremoteplayback controlslist="nodownload noremoteplayback noplaybackrate" preload="auto">
+      <source src="media/kiyosumi%20-%20repeat.webm" type="video/webm">
+    </video>
+    <div class="bg__overlay" aria-hidden="true"></div>
+  </div>
+  <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+  <main class="page usersPage page-transition" role="main">
+    <a class="navTop navTop--left reveal" href="index.html">Back</a>
+    <button class="navTop navTop--right usernamesEditorToggle reveal" id="openEditorBtn" type="button"
+      aria-label="Open username editor">⚙</button>
+
+    <section class="usersPanel reveal reveal--delay-1" aria-label="Username archive">
+      <div class="usersPanel__heading">
+        <h1 class="usersPanel__title">Usernames</h1>
+      </div>
+
+      <div class="usersFilters" role="group" aria-label="Sort by platform">
+        <button class="usersFilter usersFilter--active" type="button" data-platform-filter="all">All</button>
+        <button class="usersFilter" type="button" data-platform-filter="youtube">YouTube</button>
+        <button class="usersFilter" type="button" data-platform-filter="instagram">Instagram</button>
+      </div>
+
+      <div class="usersGrid" id="usersGrid">
+        <article class="userTile" data-platform="youtube" data-id="0">
+          <a class="userTile__link" href="https://youtube.com/@astral" target="_blank" rel="noopener">
+            <span class="userTile__name">astral</span>
+            <span class="userTile__platform">YouTube</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="youtube" data-id="1">
+          <a class="userTile__link" href="https://youtube.com/@onyx" target="_blank" rel="noopener">
+            <span class="userTile__name">onyx</span>
+            <span class="userTile__platform">YouTube</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="youtube" data-id="2">
+          <a class="userTile__link" href="https://youtube.com/@nova" target="_blank" rel="noopener">
+            <span class="userTile__name">nova</span>
+            <span class="userTile__platform">YouTube</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="youtube" data-id="3">
+          <a class="userTile__link" href="https://youtube.com/@veil" target="_blank" rel="noopener">
+            <span class="userTile__name">veil</span>
+            <span class="userTile__platform">YouTube</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="youtube" data-id="4">
+          <a class="userTile__link" href="https://youtube.com/@echo" target="_blank" rel="noopener">
+            <span class="userTile__name">echo</span>
+            <span class="userTile__platform">YouTube</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="instagram" data-id="5">
+          <a class="userTile__link" href="https://instagram.com/seraph" target="_blank" rel="noopener">
+            <span class="userTile__name">seraph</span>
+            <span class="userTile__platform">Instagram</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="instagram" data-id="6">
+          <a class="userTile__link" href="https://instagram.com/atlas" target="_blank" rel="noopener">
+            <span class="userTile__name">atlas</span>
+            <span class="userTile__platform">Instagram</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="instagram" data-id="7">
+          <a class="userTile__link" href="https://instagram.com/ghost" target="_blank" rel="noopener">
+            <span class="userTile__name">ghost</span>
+            <span class="userTile__platform">Instagram</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="instagram" data-id="8">
+          <a class="userTile__link" href="https://instagram.com/zenith" target="_blank" rel="noopener">
+            <span class="userTile__name">zenith</span>
+            <span class="userTile__platform">Instagram</span>
+          </a>
+        </article>
+        <article class="userTile" data-platform="instagram" data-id="9">
+          <a class="userTile__link" href="https://instagram.com/lumen" target="_blank" rel="noopener">
+            <span class="userTile__name">lumen</span>
+            <span class="userTile__platform">Instagram</span>
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <div class="usersEditor" id="usersEditor" hidden>
+    <div class="usersEditor__panel" role="dialog" aria-modal="true" aria-labelledby="usersEditorTitle">
+      <div class="usersEditor__head">
+        <h2 class="usersEditor__title" id="usersEditorTitle">Edit username archive</h2>
+        <button class="usersEditor__close" id="closeEditorBtn" type="button" aria-label="Close editor">✕</button>
+      </div>
+
+      <div class="usersEditorAdd">
+        <input id="addNameInput" type="text" class="usersEditorCard__input" placeholder="New username">
+        <input id="addUrlInput" type="url" class="usersEditorCard__input" placeholder="https://...">
+        <select id="addPlatformSelect" class="usersEditorCard__input">
+          <option value="youtube">YouTube</option>
+          <option value="instagram">Instagram</option>
+        </select>
+        <button class="usersEditor__btn" id="addTileBtn" type="button">Add tile</button>
+      </div>
+
+      <div class="usersEditorGrid" id="usersEditorGrid"></div>
+
+      <div class="usersEditor__actions">
+        <button class="usersEditor__btn usersEditor__btn--primary" id="saveEditorBtn" type="button">Save all</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const filterButtons = document.querySelectorAll("[data-platform-filter]");
+    const openEditorBtn = document.getElementById("openEditorBtn");
+    const closeEditorBtn = document.getElementById("closeEditorBtn");
+    const usersEditor = document.getElementById("usersEditor");
+    const usersEditorGrid = document.getElementById("usersEditorGrid");
+    const saveEditorBtn = document.getElementById("saveEditorBtn");
+    const addTileBtn = document.getElementById("addTileBtn");
+    const addNameInput = document.getElementById("addNameInput");
+    const addUrlInput = document.getElementById("addUrlInput");
+    const addPlatformSelect = document.getElementById("addPlatformSelect");
+    const usersGrid = document.getElementById("usersGrid");
+    const usersSubtitle = document.querySelector(".usersPanel__subtitle");
+    const storageKey = "usernameArchiveTiles";
+    const defaultTiles = Array.from(document.querySelectorAll(".userTile[data-id]")).map((tile) => {
+      const nameEl = tile.querySelector(".userTile__name");
+      const linkEl = tile.querySelector(".userTile__link");
+      return {
+        id: tile.dataset.id || crypto.randomUUID(),
+        platform: tile.dataset.platform || "youtube",
+        name: (nameEl?.textContent || "").trim(),
+        url: (linkEl?.getAttribute("href") || "#").trim(),
+      };
+    });
+    let tilesData = [...defaultTiles];
+
+    const updateSubtitle = () => {
+      usersSubtitle.textContent = `Rare archive · ${tilesData.length} entries`;
+    };
+
+    const applyActiveFilter = () => {
+      const activeFilter = document.querySelector(".usersFilter--active");
+      const selectedPlatform = activeFilter?.dataset.platformFilter || "all";
+      const currentTiles = document.querySelectorAll(".userTile[data-platform]");
+
+      currentTiles.forEach((tile) => {
+        const matches =
+          selectedPlatform === "all" ||
+          tile.dataset.platform === selectedPlatform;
+        tile.hidden = !matches;
+      });
+    };
+
+    const renderTiles = () => {
+      const tilesMarkup = tilesData
+        .map((tile) => {
+          const platformLabel = tile.platform === "instagram" ? "Instagram" : "YouTube";
+          return `
+              <article class="userTile" data-platform="${tile.platform}" data-id="${tile.id}">
+                <a class="userTile__link" href="${tile.url}" target="_blank" rel="noopener">
+                  <span class="userTile__name">${tile.name}</span>
+                  <span class="userTile__platform">${platformLabel}</span>
+                </a>
+              </article>
+            `;
+        })
+        .join("");
+
+      usersGrid.innerHTML = tilesMarkup;
+      updateSubtitle();
+      applyActiveFilter();
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((item) =>
+          item.classList.toggle("usersFilter--active", item === button)
+        );
+        applyActiveFilter();
+      });
+    });
+
+    const loadStoredTiles = () => {
+      const stored = localStorage.getItem(storageKey);
+      if (!stored) return;
+
+      try {
+        const parsed = JSON.parse(stored);
+        if (!Array.isArray(parsed)) return;
+
+        const fromStorage = [];
+
+        parsed.forEach((entry) => {
+          if (
+            typeof entry?.id === "undefined" ||
+            typeof entry?.name !== "string" ||
+            typeof entry?.url !== "string"
+          ) return;
+
+          const platform = entry.platform === "instagram" ? "instagram" : "youtube";
+          fromStorage.push({
+            id: String(entry.id),
+            name: entry.name.trim(),
+            url: entry.url.trim() || "#",
+            platform,
+          });
+        });
+
+        if (fromStorage.length > 0) {
+          const seen = new Set();
+          tilesData = fromStorage.filter((entry) => {
+            if (seen.has(entry.id)) return false;
+            seen.add(entry.id);
+            return true;
+          });
+        } else {
+          tilesData = [...defaultTiles];
+        }
+      } catch (error) {
+        console.error("Could not parse stored tiles", error);
+      }
+    };
+
+    const saveAllTiles = (entries) => {
+      localStorage.setItem(storageKey, JSON.stringify(entries));
+    };
+
+    const buildEditorGrid = () => {
+      const currentTiles = Array.from(document.querySelectorAll(".userTile[data-id]"));
+      const cardsMarkup = currentTiles
+        .map((tile, index) => {
+          const nameEl = tile.querySelector(".userTile__name");
+          const linkEl = tile.querySelector(".userTile__link");
+          const platformEl = tile.querySelector(".userTile__platform");
+          const id = tile.dataset.id;
+          const name = (nameEl?.textContent || "").trim().replaceAll('"', "&quot;");
+          const url = (linkEl?.getAttribute("href") || "").trim().replaceAll('"', "&quot;");
+          const platform = (platformEl?.textContent || tile.dataset.platform || "").trim();
+          const normalizedPlatform = platform.toLowerCase() === "instagram" ? "instagram" : "youtube";
+
+          return `
+              <article class="usersEditorCard" data-id="${id}">
+                <div class="usersEditorCard__header">
+                  <span class="usersEditorCard__index">#${index + 1}</span>
+                  <span class="usersEditorCard__platform">${platform}</span>
+                </div>
+                <label class="usersEditorCard__field">
+                  <span>Username</span>
+                  <input type="text" class="usersEditorCard__input" data-field="name" value="${name}">
+                </label>
+                <label class="usersEditorCard__field">
+                  <span>Profile URL</span>
+                  <input type="url" class="usersEditorCard__input" data-field="url" value="${url}">
+                </label>
+                <label class="usersEditorCard__field">
+                  <span>Category</span>
+                  <select class="usersEditorCard__input" data-field="platform">
+                    <option value="youtube" ${normalizedPlatform === "youtube" ? "selected" : ""}>YouTube</option>
+                    <option value="instagram" ${normalizedPlatform === "instagram" ? "selected" : ""}>Instagram</option>
+                  </select>
+                </label>
+                <button class="usersEditorCard__delete" type="button" data-action="delete-tile" data-id="${id}">Delete</button>
+              </article>
+            `;
+        })
+        .join("");
+
+      usersEditorGrid.innerHTML = cardsMarkup;
+    };
+
+    const persistAllEditorCards = () => {
+      const editorCards = usersEditorGrid.querySelectorAll(".usersEditorCard[data-id]");
+      const entries = [];
+
+      editorCards.forEach((card) => {
+        const tileId = card.dataset.id;
+        const nameInput = card.querySelector('[data-field="name"]');
+        const urlInput = card.querySelector('[data-field="url"]');
+        const platformInput = card.querySelector('[data-field="platform"]');
+        if (!tileId || !nameInput || !urlInput || !platformInput) return;
+
+        const tile = document.querySelector(`.userTile[data-id="${tileId}"]`);
+        if (!tile) return;
+
+        const nameEl = tile.querySelector(".userTile__name");
+        const linkEl = tile.querySelector(".userTile__link");
+        if (!nameEl || !linkEl) return;
+
+        const fallbackName = nameEl.textContent || "";
+        const fallbackUrl = linkEl.getAttribute("href") || "#";
+        const fallbackPlatform = tile.dataset.platform || "youtube";
+        const nextName = nameInput.value.trim() || fallbackName;
+        const nextUrl = urlInput.value.trim() || fallbackUrl;
+        const nextPlatform = platformInput.value === "instagram" ? "instagram" : fallbackPlatform;
+
+        nameEl.textContent = nextName;
+        linkEl.href = nextUrl;
+        tile.dataset.platform = nextPlatform;
+        tile.querySelector(".userTile__platform").textContent =
+          nextPlatform === "instagram" ? "Instagram" : "YouTube";
+
+        entries.push({ id: tileId, name: nextName, url: nextUrl, platform: nextPlatform });
+      });
+
+      tilesData = entries;
+      renderTiles();
+      saveAllTiles(entries);
+    };
+
+    openEditorBtn.addEventListener("click", () => {
+      buildEditorGrid();
+      usersEditor.hidden = false;
+    });
+
+    closeEditorBtn.addEventListener("click", () => {
+      persistAllEditorCards();
+      usersEditor.hidden = true;
+    });
+
+    usersEditor.addEventListener("click", (event) => {
+      if (event.target === usersEditor) {
+        persistAllEditorCards();
+        usersEditor.hidden = true;
+      }
+    });
+
+    saveEditorBtn.addEventListener("click", () => {
+      persistAllEditorCards();
+      usersEditor.hidden = true;
+    });
+
+    usersEditorGrid.addEventListener("click", (event) => {
+      const deleteButton = event.target.closest('[data-action="delete-tile"]');
+      if (!deleteButton) return;
+
+      const tileId = deleteButton.dataset.id;
+      if (!tileId) return;
+
+      tilesData = tilesData.filter((entry) => entry.id !== tileId);
+      renderTiles();
+      buildEditorGrid();
+      saveAllTiles(tilesData);
+    });
+
+    addTileBtn.addEventListener("click", () => {
+      const nextName = addNameInput.value.trim();
+      const nextUrl = addUrlInput.value.trim();
+      const nextPlatform = addPlatformSelect.value === "instagram" ? "instagram" : "youtube";
+
+      if (!nextName) return;
+
+      const newTile = {
+        id: `tile-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        name: nextName,
+        url: nextUrl || "#",
+        platform: nextPlatform,
+      };
+
+      tilesData.push(newTile);
+      renderTiles();
+      buildEditorGrid();
+      saveAllTiles(tilesData);
+
+      addNameInput.value = "";
+      addUrlInput.value = "";
+      addPlatformSelect.value = "youtube";
+    });
+
+    loadStoredTiles();
+    renderTiles();
+  </script>
+  <script>
+    /* Particle system for usernames page */
+    (function () {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      let mouseX = -9999, mouseY = -9999;
+      const PARTICLE_COUNT = 400;
+      let SPHERE_RADIUS = Math.max(window.innerWidth, window.innerHeight) * 0.7;
+      const REPEL_STRENGTH = 80;
+      const ROTATION_SPEED = 0.00018;
+      const particles = [];
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        SPHERE_RADIUS = Math.max(w, h) * 0.7;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const phi = Math.acos(1 - 2 * (i + 0.5) / PARTICLE_COUNT);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        particles.push({
+          bx: Math.sin(phi) * Math.cos(theta),
+          by: Math.sin(phi) * Math.sin(theta),
+          bz: Math.cos(phi),
+          sx: 0, sy: 0, dx: 0, dy: 0,
+          size: Math.random() * 1.5 + 0.6,
+          driftSpeed: Math.random() * 0.6 + 0.4,
+          driftPhase: Math.random() * Math.PI * 2,
+        });
+      }
+      let angleY = 0, angleX = 0.3;
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        angleY += ROTATION_SPEED;
+        angleX += ROTATION_SPEED * 0.3;
+        const cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+        const cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+        const cx = w / 2, cy = h / 2;
+        const time = Date.now() * 0.001;
+        const projected = [];
+        for (const p of particles) {
+          const wobble = Math.sin(time * p.driftSpeed + p.driftPhase) * 0.015;
+          const wobbleY = Math.cos(time * p.driftSpeed * 0.7 + p.driftPhase) * 0.012;
+          const rx = (p.bx + wobble) * cosY - p.bz * sinY;
+          const rz = (p.bx + wobble) * sinY + p.bz * cosY;
+          let y = p.by + wobbleY;
+          const y2 = y * cosX - rz * sinX;
+          const z2 = y * sinX + rz * cosX;
+          y = y2;
+          const z = z2;
+          const sx = cx + rx * SPHERE_RADIUS;
+          const sy = cy + y * SPHERE_RADIUS;
+          const depth = (z + 1) / 2;
+          const rdx = sx - mouseX, rdy = sy - mouseY;
+          const rDist = Math.sqrt(rdx * rdx + rdy * rdy);
+          let targetDx = 0, targetDy = 0;
+          if (rDist > 0) {
+            const force = REPEL_STRENGTH * 0.6;
+            targetDx = (rdx / rDist) * force;
+            targetDy = (rdy / rDist) * force;
+          }
+          p.dx += (targetDx - p.dx) * 0.08;
+          p.dy += (targetDy - p.dy) * 0.08;
+          p.sx = sx + p.dx;
+          p.sy = sy + p.dy;
+          projected.push({ p, depth, z });
+        }
+        projected.sort((a, b) => a.z - b.z);
+        for (const { p, depth } of projected) {
+          const alpha = 0.04 + depth * 0.32;
+          const size = p.size * (0.4 + depth * 0.8);
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(210, 225, 255, ${alpha})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
+</body>
+
+</html>

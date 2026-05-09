@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay | Security Researcher and Linux Enthusiast</title>
+    <meta name="description" content="Personal website of Jay, a security researcher and Linux enthusiast from Sweden. Discover my projects and contact information.">
+    <meta name="keywords" content="Jay, Security Researcher, Linux Enthusiast, InfoSec, Cybersecurity, Sweden, Portfolio">
+    <meta name="author" content="Jay">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jay.yt/">
+    <meta property="og:title" content="Jay | Security Researcher and Linux Enthusiast">
+    <meta property="og:description" content="Personal website of Jay, a security researcher and Linux enthusiast from Sweden. Discover my projects and contact information.">
+    <meta property="og:image" content="images/profile.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jay.yt/">
+    <meta property="twitter:title" content="Jay | Security Researcher and Linux Enthusiast">
+    <meta property="twitter:description" content="Personal website of Jay, a security researcher and Linux enthusiast from Sweden. Discover my projects and contact information.">
+    <meta property="twitter:image" content="https://jay.yt/profile.webp">
+    <link rel="canonical" href="https://jay.yt/">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <div class="bg">
+      <video id="bgVideo" class="bg__video" autoplay="" loop="" playsinline="" webkit-playsinline="" muted="" disablepictureinpicture="" disableremoteplayback="" controlslist="nodownload noremoteplayback noplaybackrate" preload="auto">
+        <source src="media/kiyosumi%20-%20repeat.webm" type="video/webm">
+      </video>
+      <div class="bg__overlay" aria-hidden="true"></div>
+    </div>
+    <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden="">
+      <img class="toast__icon" src="images/Checkmark.png" alt="">
+      <div id="toastText" class="toast__text">Copied to clipboard.</div>
+    </div>
+
+    <main class="page page-transition" role="main">
+      <div class="navTopWrap navTopWrap--right" aria-label="Top navigation">
+        <a class="navTop navTop--link" href="https://lookup.jay.yt">YT Lookup</a>
+      </div>
+
+      <div class="cardStack" aria-live="polite">
+        <section class="card viewCard reveal" aria-label="Bio">
+          <div class="card__top">
+                <div class="card__heading">
+                  <h1 id="heroTitle" class="card__title"></h1>
+                  <p id="heroSubtitle" class="card__subtitle reveal reveal--delay-1">Jay · Sweden</p>
+                </div>
+                <div class="card__right reveal reveal--delay-2">
+                  <button id="bioEmailBtn" class="card__email contactAction contactAction--copy" type="button" data-copy="jay@jay.yt" aria-label="Copy email address">
+                    <span id="bioEmailDisplay" class="card__emailText">jay@jay.yt</span>
+                  </button>
+
+                  <img id="heroAvatar" class="card__avatar" src="images/profile.webp" alt="Jay profile picture" decoding="async" loading="eager">
+                </div>
+              </div>
+
+            <div class="card__body reveal reveal--delay-3">
+            <p id="bioBodyP1" class="card__text">
+              Hi there, my name is Jay. I'm from Sweden — I do security research and spend a lot of time in Linux.
+            </p>
+            <p id="bioBodyP2" class="card__text">
+              Reach out using the email button.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <section class="bentoSection reveal reveal--delay-4" aria-label="Quick navigation">
+        <div class="bentoGrid">
+          <a class="bentoTile bentoTile--single" href="users.html">
+            <span class="bentoTile__label">Usernames</span>
+          </a>
+        </div>
+      </section>
+
+      <div class="audio reveal reveal--delay-5" aria-label="Audio controls">
+        <button id="muteBtn" class="audio__btn" type="button" aria-pressed="false" title="Toggle audio">
+          <svg id="muteIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        </button>
+        <div id="audioEq" class="audio__eq audio__eq--paused" aria-hidden="true">
+          <div class="audio__eqBar" style="height: 3px"></div>
+          <div class="audio__eqBar" style="height: 3px"></div>
+          <div class="audio__eqBar" style="height: 3px"></div>
+          <div class="audio__eqBar" style="height: 3px"></div>
+          <div class="audio__eqBar" style="height: 3px"></div>
+        </div>
+        <label class="audio__sliderWrap" for="volume">
+          <input id="volume" class="audio__slider" type="range" min="0" max="100" step="1" value="30" aria-label="Volume">
+        </label>
+      </div>
+
+      <button class="navTop bgAppearanceToggle" id="openBgAppearanceBtn" type="button" aria-label="Home page settings">⚙</button>
+    </main>
+
+    <div class="bgAppearance" id="bgAppearanceModal" hidden>
+      <div class="bgAppearance__panel" role="dialog" aria-modal="true" aria-labelledby="bgAppearanceTitle">
+        <div class="bgAppearance__head">
+          <h2 class="bgAppearance__title" id="bgAppearanceTitle">Customize home</h2>
+          <button class="bgAppearance__close" id="closeBgAppearanceBtn" type="button" aria-label="Close">✕</button>
+        </div>
+
+        <div class="bgAppearance__scroll">
+          <div class="bgAppearance__section">
+            <div class="bgAppearance__sectionTitle">Background video</div>
+            <p class="bgAppearance__hint">Saturation, brightness, hue, and blur — only on the looping video (overlay unchanged).</p>
+            <label class="bgAppearance__field">
+              <span>Saturation <span id="bgSaturationValue">105</span>%</span>
+              <input id="bgVideoSaturation" type="range" min="0" max="200" step="1" value="105" aria-label="Background video saturation">
+            </label>
+            <label class="bgAppearance__field">
+              <span>Brightness <span id="bgBrightnessValue">80</span>%</span>
+              <input id="bgVideoBrightness" type="range" min="20" max="150" step="1" value="80" aria-label="Background video brightness">
+            </label>
+            <label class="bgAppearance__field">
+              <span>Hue rotation <span id="bgHueValue">0</span>°</span>
+              <input id="bgVideoHue" type="range" min="0" max="360" step="1" value="0" aria-label="Background video hue">
+            </label>
+            <label class="bgAppearance__field bgAppearance__field--tightBottom">
+              <span>Blur <span id="bgBlurValue">0</span>px</span>
+              <input id="bgVideoBlur" type="range" min="0" max="24" step="1" value="0" aria-label="Video blur">
+            </label>
+          </div>
+
+          <div class="bgAppearance__section">
+            <div class="bgAppearance__sectionTitle">Hero &amp; intro</div>
+            <p class="bgAppearance__hint">Main title is the large heading; subtext is the first paragraph under it (your “hi there…” line).</p>
+            <label class="bgAppearance__field">
+              <span>Main headline</span>
+              <input id="editorHeroTitle" class="bgAppearance__textInput" type="text" maxlength="280" autocomplete="off" placeholder="Security Researcher and Linux Enthusiast">
+            </label>
+            <label class="bgAppearance__field">
+              <span>Tagline under headline</span>
+              <input id="editorHeroSubtitle" class="bgAppearance__textInput" type="text" maxlength="160" autocomplete="off" placeholder="Jay · Sweden">
+            </label>
+            <label class="bgAppearance__field bgAppearance__field--tightBottom">
+              <span>Subtext (first paragraph)</span>
+              <textarea id="editorBioP1" class="bgAppearance__textarea" rows="4" maxlength="2000" placeholder="Hi there, my name is…"></textarea>
+            </label>
+          </div>
+
+          <div class="bgAppearance__section">
+            <div class="bgAppearance__sectionTitle">More text</div>
+            <label class="bgAppearance__field bgAppearance__field--tightBottom">
+              <span>Second paragraph</span>
+              <textarea id="editorBioP2" class="bgAppearance__textarea" rows="4" maxlength="2000"></textarea>
+            </label>
+          </div>
+
+          <div class="bgAppearance__section">
+            <div class="bgAppearance__sectionTitle">Email button</div>
+            <p class="bgAppearance__hint">This address appears on the button and is copied when you click it.</p>
+            <label class="bgAppearance__row">
+              <input id="editorEmailVisible" type="checkbox" checked>
+              <span>Show email button</span>
+            </label>
+            <label class="bgAppearance__field bgAppearance__field--tightBottom">
+              <span>Email</span>
+              <input id="editorEmailAddress" class="bgAppearance__textInput" type="email" maxlength="120" autocomplete="off" placeholder="jay@jay.yt">
+            </label>
+          </div>
+
+          <div class="bgAppearance__section">
+            <div class="bgAppearance__sectionTitle">Avatar</div>
+            <label class="bgAppearance__field">
+              <span>Image URL or path</span>
+              <input id="editorAvatarSrc" class="bgAppearance__textInput" type="text" maxlength="500" autocomplete="off" placeholder="images/profile.webp">
+            </label>
+            <label class="bgAppearance__field bgAppearance__field--tightBottom">
+              <span>Alt text (accessibility)</span>
+              <input id="editorAvatarAlt" class="bgAppearance__textInput" type="text" maxlength="200" autocomplete="off">
+            </label>
+          </div>
+        </div>
+
+        <div class="bgAppearance__actions">
+          <button class="bgAppearance__btn" id="resetBgAppearanceBtn" type="button">Reset all</button>
+          <button class="bgAppearance__btn bgAppearance__btn--primary" id="saveBgAppearanceBtn" type="button">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <script data-cfasync="false" src="js/email-decode.min.js"></script><script src="js/script.js" defer=""></script>
+  
+
+</body></html>
