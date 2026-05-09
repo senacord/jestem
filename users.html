@@ -158,7 +158,7 @@
     let tilesData = [...defaultTiles];
 
     const updateSubtitle = () => {
-      usersSubtitle.textContent = `Rare archive · ${tilesData.length} entries`;
+      if (usersSubtitle) usersSubtitle.textContent = `Rare archive · ${tilesData.length} entries`;
     };
 
     const applyActiveFilter = () => {
