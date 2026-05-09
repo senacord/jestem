@@ -197,7 +197,7 @@ function canonicalHomeDefaults() {
   return {
     background: defaultBackgroundSlice(),
     hero: {
-      title: 'Security Researcher and Linux Enthusiast',
+      title: 'Sena',
       subtitle: 'Jay · Sweden',
     },
     body: {
@@ -730,7 +730,7 @@ initHomePageEditorBundle();
 
   // Read saved settings first
   const HOME_KEY = 'homeEditorSettings';
-  let targetText = 'Security Researcher and Linux Enthusiast';
+  let targetText = 'Sena';
   try {
     const raw = localStorage.getItem(HOME_KEY);
     if (raw) {
